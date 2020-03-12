@@ -40,7 +40,7 @@ namespace MusicOrganizer.Controllers
       return View("Show", model);
     }
 
-    [HttpPost("/artists/{id}")]
+    [HttpGet("/artists/{id}")]
     public ActionResult Show(int id)
     {
       Dictionary<string, object> model = new Dictionary<string, object> ();
