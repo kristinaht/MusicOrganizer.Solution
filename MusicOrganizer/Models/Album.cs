@@ -26,6 +26,19 @@ namespace MusicOrganizer.Models
       Id = id;
     }
 
+    public override bool Equals(System.Object otherAlbum)
+    { 
+      if(!(otherAlbum is Album))
+      {
+        return false;
+      }
+      Album newAlbum = (Album) otherAlbum;
+      bool idEquality = (this.Id == newAlbum.Id);
+      bool titleEquality = (this.Title == newAlbum.Title);
+      bool trackTotalsEquality = (this.TrackTotals == newAlbum.TrackTotals);
+      bool runTimeEquality = (this.RunTime == newAlbum.RunTime);
+      return (titleEquality && trackTotalsEquality && runTimeEquality && idEquality);
+    }
 
     public static List<Album> GetAll()
     {
