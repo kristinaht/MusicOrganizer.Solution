@@ -40,6 +40,36 @@ namespace MusicOrganizer.Models
       return (titleEquality && trackTotalsEquality && runTimeEquality && idEquality);
     }
 
+    public void Save()
+    {
+      MySqlConnection conn = DB.Connection();
+      conn.Open();
+      var cmd = conn.CreateCommand() as MySqlCommand;
+
+      cmd.CommandText = @"INSERT INTO albums (title, track_totals, run_time) VALUES (@AlbumTitle, @AlbumTrackTotals, @AlbumRunTime);";
+      MySqlParameter title = new MySqlParameter();
+      title.ParameterName = "@AlbumTitle";
+      title.Value = this.Title;
+      MySqlParameter trackTotals = new MySqlParameter();
+      trackTotals.ParameterName = "@AlbumTrackTotals";
+      trackTotals.Value = this.TrackTotals;
+      MySqlParameter runTime = new MySqlParameter();
+      runTime.ParameterName = "@AlbumRunTime";
+      runTime.Value = this.RunTime;
+
+      cmd.Parameters.Add(title);
+      cmd.Parameters.Add(trackTotals);
+      cmd.Parameters.Add(runTime);
+      cmd.ExecuteNonQuery();
+      Id = (int) cmd.LastInsertedId;
+
+      conn.Close();
+      if (conn != null)
+      {
+        conn.Dispose();
+      }
+    }
+
     public static List<Album> GetAll()
     {
       List<Album> allAlbums = new List<Album> { };

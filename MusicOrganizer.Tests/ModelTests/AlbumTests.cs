@@ -37,7 +37,18 @@ namespace MusicOrganizer.Tests
        Album secondAlbum = new Album("title", "something", "shth");
 
        Assert.AreEqual(firstAlbum, secondAlbum);
+    }
 
+    [TestMethod]
+    public void Save_SavesToDatabase_AlbumList()
+    {
+      Album testAlbum = new Album("title", "something", "shth");
+
+      testAlbum.Save();
+      List<Album> result = Album.GetAll();
+      List<Album> testList = new List<Album>{testAlbum};
+
+      CollectionAssert.AreEqual(testList, result);
     }
   }
 }

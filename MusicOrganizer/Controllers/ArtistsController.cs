@@ -33,6 +33,7 @@ namespace MusicOrganizer.Controllers
       Dictionary<string, object> model = new Dictionary<string, object>();
       Artist foundArtist = Artist.Find(artistId);
       Album newAlbum = new Album(albumTitle, trackTotals, runTime);
+      newAlbum.Save();
       foundArtist.AddAlbum(newAlbum);
       List<Album> artistAlbums = foundArtist.Albums;
       model.Add("albums", artistAlbums);
